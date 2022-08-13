@@ -1,35 +1,169 @@
-import "./App.css";
+import { Routes, Route, useLocation } from "react-router-dom";
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+import { Provider } from "react-redux";
 
+// application data store
+import { store } from "./store";
+
+import Header from "./components/Header/Header";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Footer from "./components/Footer";
+
+// Pages
+import Dashboard from "./pages/Dashboard";
+import ListUsers from "./pages/users/Index";
+import AddUsers from "./pages/users/Add";
+import EditUsers from "./pages/users/Edit";
+import Login from "./components/Auth/Login";
+
+/**
+ * Create the main component
+ * 
+ * @category core
+ * @returns React component
+ */
 function App() {
+  const location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="App-logo w-36 h-36 mb-5 rounded-full overflow-hidden shadow-[0_0_20px_7px_rgba(0,0,0,0.3)] dark:shadow-[0_0_15px_5px_rgba(255,255,255,0.3)] ">
-          <img alt="" className="w-80 bg-white dark:bg-gray-800" src={`https://server.ansarmirzayi.ir/images/settings/IMG_20220316_193825_419.jpg`} />
-        </div>
-        <p>Special Ansar's template</p>
-        <p className="flex gap-2">
-          <a href="http://reactjs.org">react</a>
-,
-          <a href="https://typescript">typescript</a>
-,
-          <a href="https://typescript">tailwindcss</a>
-,
-          <a href="https://axios-http.com/">axios</a>
-          ,
-          <a href="https://redux.js.org/">redux , redux-toolkit , redux-thunk</a>
-        </p>
-        <a
-          className="App-link"
-          href="https://ansarmirzayi.ir"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Provider store={store}>
+      <div className={`flex min-h-screen w-full bg-slate-50`}>
+        <Header />
+        <Sidebar />
+        <main
+          className={`w-full px-5  mt-20 relative pt-10 ${
+            location.pathname !== "/login" ? "lg:pr-60" : ""
+          }`}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute>
+                  <ListUsers />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/users/add"
+              element={
+                <ProtectedRoute>
+                  <AddUsers />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/users/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditUsers />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* <Route
+            path="/posts"
+            element={
+              <ProtectedRoute>
+                <ListPosts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts/add"
+            element={
+              <ProtectedRoute>
+                <AddPosts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditPosts />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/tags"
+            element={
+              <ProtectedRoute>
+                <ListTags />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/tags/add"
+            element={
+              <ProtectedRoute>
+                <AddTags />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/tags/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditTags />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/categories"
+            element={
+              <ProtectedRoute>
+                <ListCategories />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/categories/add"
+            element={
+              <ProtectedRoute>
+                <AddCategories />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/categories/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditCategories />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/comments"
+            element={
+              <ProtectedRoute>
+                <ListComments />
+              </ProtectedRoute>
+            }
+          /> */}
+          </Routes>
+          <Footer />
+        </main>
+      </div>
+    </Provider>
   );
 }
-
 export default App;
