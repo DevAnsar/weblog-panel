@@ -6,7 +6,7 @@
 * [x] Auth
 * [x] Users
 * [x] Categories
-* [ ] Tags
+* [X] Tags
 * [ ] Posts
 * [ ] Comments
 * [ ] Notification
