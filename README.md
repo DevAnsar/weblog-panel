@@ -5,7 +5,7 @@
 * [x] Layout
 * [x] Auth
 * [x] Users
-* [ ] Categories
+* [x] Categories
 * [ ] Tags
 * [ ] Posts
 * [ ] Comments
