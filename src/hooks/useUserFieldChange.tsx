@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../store/hooks";
 // actions
-import { handleUserChange } from "../store/slices/user";
+import { handleUserChange } from "../store/slices/userSlice";
 
 
 /**

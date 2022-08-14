@@ -1,62 +1,63 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-// partials
-import UserForm from "../../components/Users/UserForm";
 import Breadcrumb from "../../components/partials/Breadcrumb";
-import { useUserFieldChange } from "../../hooks/useUserFieldChange";
+import { useParams, useNavigate } from "react-router-dom";
+import CategoryForm from "../../components/Categories/CategoryForm";
+import { useAppSelector, useAppDispatch } from "../../store/hooks";
 
-// actions
+// category actions
 import {
-  editUser,
-  showUser,
-  setUserDefaults,
-  resetUserFields,
-} from "../../store/slices/userSlice";
+  handleCategoryTitle,
+  editCategory,
+  showCategory,
+  setCategoryDefaults,
+  resetCategoryFields,
+} from "../../store/slices/categorySlice";
 
 /**
- * user edit page.
+ * category edit page.
  *
  * @category pages
  * @returns React component
  */
 const EditPage = () => {
-  //get user id from the dynamic params from the current URL
+  //get category id from the dynamic params from the current URL
   const { id } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // user field change  handler
-  const handleUserChangeFn = useUserFieldChange();
-
-  // take users information from redux store
+  // take categories information from redux store
   const {
-    user,
+    category,
     success_message,
     error_message,
     validation_errors,
     create_update_spinner,
-  } = useAppSelector((state) => state.user);
+  } = useAppSelector((state) => state.category);
 
-  // Refreshing and initializing user store and geting user data for show in the UserForm
+  // Refreshing and initializing category store and geting category data for show in the CategoryForm
   useEffect(() => {
-    dispatch(setUserDefaults());
-    dispatch(resetUserFields());
-    dispatch(showUser({ id: id || "0" }));
+    dispatch(setCategoryDefaults());
+    dispatch(resetCategoryFields());
+    dispatch(showCategory({ id: id || "0" }));
   }, []);
 
-  // user edit form submit handler
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(handleCategoryTitle({ title: e.target.value }));
+  };
+
+  // category edit form submit handler
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(user);
     dispatch(
-      editUser({
+      editCategory({
+        title: category.title,
         id: id || "0",
-        data: user,
-        cb: () => {
-          dispatch(resetUserFields());
-          setTimeout(() => navigate("/users"), 2000);
+        cb: function () {
+          // reset title
+          dispatch(handleCategoryTitle({ title: "" }));
+          // redirect
+          setTimeout(() => navigate("/categories"), 1000);
         },
       })
     );
@@ -65,20 +66,20 @@ const EditPage = () => {
   return (
     <div className="flex flex-col min-h-full">
       <Breadcrumb />
-      <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-8 max-w-md">
         <div className="py-8">
           <form className="flex w-full" onSubmit={handleFormSubmit}>
             <div className="w-full max-w-2xl px-5 py-5 m-auto bg-white rounded-2xl shadow dark:bg-gray-800">
               <div className="mb-5 text-base text-gray-800 dark:text-white">
-                ویرایش کاربر
+                ایجاد دسته
               </div>
               <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
-                <UserForm
-                  user={user}
-                  create_update_spinner={create_update_spinner}
-                  success_message={success_message}
+                <CategoryForm
+                  category={category}
+                  handleCategoryChange={handleCategoryChange}
                   error_message={error_message}
-                  handleUserChange={handleUserChangeFn}
+                  success_message={success_message}
+                  create_update_spinner={create_update_spinner}
                   validation_errors={validation_errors}
                 />
                 <div className="col-span-2 text-right">
@@ -86,7 +87,7 @@ const EditPage = () => {
                     type="submit"
                     className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                   >
-                    ویرایش کاربر
+                    ویرایش دسته
                   </button>
                 </div>
               </div>

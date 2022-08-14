@@ -10,7 +10,7 @@ import {
   setUserDefaults,
   resetUserFields,
   addUser,
-} from "../../store/slices/user";
+} from "../../store/slices/userSlice";
 
 /**
  * user create page.

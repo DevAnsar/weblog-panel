@@ -1,92 +1,85 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-// partials
-import UserForm from "../../components/Users/UserForm";
 import Breadcrumb from "../../components/partials/Breadcrumb";
-import { useUserFieldChange } from "../../hooks/useUserFieldChange";
-
-// actions
+import { useNavigate } from "react-router-dom";
+import CategoryForm from "../../components/Categories/CategoryForm";
 import {
-  editUser,
-  showUser,
-  setUserDefaults,
-  resetUserFields,
-} from "../../store/slices/userSlice";
+  handleCategoryTitle,
+  addCategory,
+  setCategoryDefaults,
+  resetCategoryFields
+} from "../../store/slices/categorySlice";
 
 /**
- * user edit page.
+ * category create page.
  *
  * @category pages
  * @returns React component
  */
-const EditPage = () => {
-  //get user id from the dynamic params from the current URL
-  const { id } = useParams();
-
+const AddPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // user field change  handler
-  const handleUserChangeFn = useUserFieldChange();
-
-  // take users information from redux store
+  // take categories information from redux store
   const {
-    user,
+    category,
     success_message,
     error_message,
     validation_errors,
     create_update_spinner,
-  } = useAppSelector((state) => state.user);
+  } = useAppSelector((state) => state.category);
 
-  // Refreshing and initializing user store and geting user data for show in the UserForm
+  // Refreshing and initializing category store
   useEffect(() => {
-    dispatch(setUserDefaults());
-    dispatch(resetUserFields());
-    dispatch(showUser({ id: id || "0" }));
+    dispatch(setCategoryDefaults());
+    dispatch(resetCategoryFields())
   }, []);
 
-  // user edit form submit handler
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(handleCategoryTitle({ title: e.target.value }));
+  };
+
+  // category create form submit handler
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(user);
+
     dispatch(
-      editUser({
-        id: id || "0",
-        data: user,
+      addCategory({
+        title: category.title,
         cb: () => {
-          dispatch(resetUserFields());
-          setTimeout(() => navigate("/users"), 2000);
+          // reset title
+          dispatch(handleCategoryTitle({ title: "" }));
+          // redirect
+          setTimeout(() => navigate("/categories"), 2000);
         },
       })
     );
   };
-
   return (
     <div className="flex flex-col min-h-full">
       <Breadcrumb />
-      <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-8 max-w-md">
         <div className="py-8">
           <form className="flex w-full" onSubmit={handleFormSubmit}>
             <div className="w-full max-w-2xl px-5 py-5 m-auto bg-white rounded-2xl shadow dark:bg-gray-800">
               <div className="mb-5 text-base text-gray-800 dark:text-white">
-                ویرایش کاربر
+                ایجاد دسته جدید
               </div>
               <div className="grid max-w-xl grid-cols-2 gap-4 m-auto">
-                <UserForm
-                  user={user}
-                  create_update_spinner={create_update_spinner}
+                <CategoryForm
+                  category={category}
                   success_message={success_message}
                   error_message={error_message}
-                  handleUserChange={handleUserChangeFn}
+                  create_update_spinner={create_update_spinner}
                   validation_errors={validation_errors}
+                  handleCategoryChange={handleCategoryChange}
                 />
                 <div className="col-span-2 text-right">
                   <button
                     type="submit"
                     className="py-2 px-4  bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
                   >
-                    ویرایش کاربر
+                    ثبت دسته جدید
                   </button>
                 </div>
               </div>
@@ -98,4 +91,4 @@ const EditPage = () => {
   );
 };
 
-export default EditPage;
+export default AddPage;

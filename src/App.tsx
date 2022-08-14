@@ -15,10 +15,13 @@ import ListUsers from "./pages/users/Index";
 import AddUsers from "./pages/users/Add";
 import EditUsers from "./pages/users/Edit";
 import Login from "./components/Auth/Login";
+import ListCategories from "./pages/categories/Index";
+import AddCategories from "./pages/categories/Add";
+import EditCategories from "./pages/categories/Edit";
 
 /**
  * Create the main component
- * 
+ *
  * @category core
  * @returns React component
  */
@@ -72,6 +75,33 @@ function App() {
               }
             />
 
+            <Route
+              path="/categories"
+              element={
+                <ProtectedRoute>
+                  <ListCategories />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/categories/add"
+              element={
+                <ProtectedRoute>
+                  <AddCategories />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/categories/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditCategories />
+                </ProtectedRoute>
+              }
+            />
+
             {/* <Route
             path="/posts"
             element={
@@ -120,33 +150,6 @@ function App() {
             element={
               <ProtectedRoute>
                 <EditTags />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/categories"
-            element={
-              <ProtectedRoute>
-                <ListCategories />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/categories/add"
-            element={
-              <ProtectedRoute>
-                <AddCategories />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/categories/edit/:id"
-            element={
-              <ProtectedRoute>
-                <EditCategories />
               </ProtectedRoute>
             }
           />

@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { listUsers,deleteUser } from "../store/slices/user";
+import { listUsers,deleteUser } from "../store/slices/userSlice";
 import type { GetUser } from "../types/user";
 
 /**
