@@ -21,6 +21,9 @@ import EditCategories from "./pages/categories/Edit";
 import ListTags from "./pages/tags/Index";
 import AddTag from "./pages/tags/Add";
 import EditTag from "./pages/tags/Edit";
+import ListPosts from "./pages/posts/Index";
+import AddPost from "./pages/posts/Add";
+import EditPost from "./pages/posts/Edit";
 
 /**
  * Create the main component
@@ -131,30 +134,31 @@ function App() {
               }
             />
 
-            {/* <Route
-            path="/posts"
-            element={
-              <ProtectedRoute>
-                <ListPosts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/posts/add"
-            element={
-              <ProtectedRoute>
-                <AddPosts />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/posts/edit/:id"
-            element={
-              <ProtectedRoute>
-                <EditPosts />
-              </ProtectedRoute>
-            }
-          />
+            <Route
+              path="/posts"
+              element={
+                <ProtectedRoute>
+                  <ListPosts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/posts/add"
+              element={
+                <ProtectedRoute>
+                  <AddPost />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/posts/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditPost />
+                </ProtectedRoute>
+              }
+            />
+            {/* 
 
           <Route
             path="/comments"

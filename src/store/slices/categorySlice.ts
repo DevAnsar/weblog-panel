@@ -9,10 +9,10 @@ import type { GetPaginationWithData } from "../../types";
 import CategoryApi from "../../apis/CategoryApis";
 import { AxiosError } from "axios";
 
-const FakeCategory: GetCategory = {
+export const FakeCategory: GetCategory = {
   id: 0,
   title: "",
-  slug: ""
+  slug: "",
 };
 
 const InitCategories: GetPaginationWithData<GetCategory[]> = {
@@ -23,13 +23,13 @@ const InitCategories: GetPaginationWithData<GetCategory[]> = {
   data: [FakeCategory],
 };
 const InitialValidationErrors: GetCategoryValidationFields = {
-  title: null
+  title: null,
 };
 
 // Initial information for category slice
 const initialState: GetCategoryInitialState = {
   categories: InitCategories,
-  all_categories :[],
+  all_categories: [],
   category: { ...FakeCategory },
   success_message: "",
   error_message: "",
@@ -66,8 +66,8 @@ export const deleteCategory = createAsyncThunk(
  *  Async addCategory action
  */
 export const addCategory = createAsyncThunk(
-  "user/addCategory",
-  async ({ title, cb }: { title: string ; cb: () => void }, thunkAPI) => {
+  "category/addCategory",
+  async ({ title, cb }: { title: string; cb: () => void }, thunkAPI) => {
     try {
       const response = await CategoryApi.add(title);
       cb();
@@ -86,7 +86,7 @@ export const addCategory = createAsyncThunk(
  *  Async showCategory action
  */
 export const showCategory = createAsyncThunk(
-  "user/showCategory",
+  "category/showCategory",
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await CategoryApi.showOne(+id);
@@ -106,7 +106,7 @@ export const showCategory = createAsyncThunk(
  *  Async editCategory action
  */
 export const editCategory = createAsyncThunk(
-  "user/editCategory",
+  "category/editCategory",
   async (
     { id, title, cb }: { id: string; title: string; cb: () => void },
     thunkAPI
@@ -114,6 +114,26 @@ export const editCategory = createAsyncThunk(
     try {
       const response = await CategoryApi.edit(title, +id);
       cb();
+      return await response.data;
+    } catch (err: any) {
+      let error: AxiosError<CreateCategoryValidationErrors> = err; // cast the error for access
+      if (!error.response) {
+        throw err;
+      }
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+/**
+ *  Async listAllCategories action
+ */
+export const listAllCategories = createAsyncThunk(
+  "category/listAllCategory",
+  async (_, thunkAPI) => {
+    try {
+      const response = await CategoryApi.listAll();
+      // cb();
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateCategoryValidationErrors> = err; // cast the error for access
@@ -144,10 +164,10 @@ export const categorySlice = createSlice({
       state.create_update_spinner = false;
     },
     resetCategoryFields: (state) => {
-      state.category = {...FakeCategory};
+      state.category = { ...FakeCategory };
     },
     handleCategoryTitle: (state, action) => {
-      state.category = {...state.category,title : action.payload.title }
+      state.category = { ...state.category, title: action.payload.title };
     },
   },
 
@@ -249,7 +269,27 @@ export const categorySlice = createSlice({
       ).errors;
       state.success_message = "";
     });
+
+    // listAllCategories async thunk lifecycle
+    builder.addCase(listAllCategories.pending, (state) => {
+      state.list_spinner = true;
+    });
+    builder.addCase(listAllCategories.fulfilled, (state, action) => {
+      state.list_spinner = false;
+      state.all_categories = action.payload.data;
+    });
+    builder.addCase(listAllCategories.rejected, (state, action) => {
+      state.list_spinner = false;
+      state.error_message = (
+        action.payload as CreateCategoryValidationErrors
+      ).message;
+      state.validation_errors = (
+        action.payload as CreateCategoryValidationErrors
+      ).errors;
+      state.success_message = "";
+    });
   },
 });
 
-export const { setCategoryDefaults, handleCategoryTitle,resetCategoryFields } = categorySlice.actions;
+export const { setCategoryDefaults, handleCategoryTitle, resetCategoryFields } =
+  categorySlice.actions;

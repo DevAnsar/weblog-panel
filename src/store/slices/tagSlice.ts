@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 
 const FakeTag: GetTag = {
   id: 0,
-  title: ""
+  title: "",
 };
 
 const InitTags: GetPaginationWithData<GetTag[]> = {
@@ -22,13 +22,13 @@ const InitTags: GetPaginationWithData<GetTag[]> = {
   data: [FakeTag],
 };
 const InitialValidationErrors: GetTagValidationFields = {
-  title: null
+  title: null,
 };
 
 // Initial information for tag slice
 const initialState: GetTagInitialState = {
   tags: InitTags,
-  all_tags :[],
+  all_tags: [],
   tag: { ...FakeTag },
   success_message: "",
   error_message: "",
@@ -65,8 +65,8 @@ export const deleteTag = createAsyncThunk(
  *  Async addTag action
  */
 export const addTag = createAsyncThunk(
-  "user/addTag",
-  async ({ title, cb }: { title: string ; cb: () => void }, thunkAPI) => {
+  "tag/addTag",
+  async ({ title, cb }: { title: string; cb: () => void }, thunkAPI) => {
     try {
       const response = await TagApi.add(title);
       cb();
@@ -85,7 +85,7 @@ export const addTag = createAsyncThunk(
  *  Async showTag action
  */
 export const showTag = createAsyncThunk(
-  "user/showTag",
+  "tag/showTag",
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await TagApi.showOne(+id);
@@ -105,7 +105,7 @@ export const showTag = createAsyncThunk(
  *  Async editTag action
  */
 export const editTag = createAsyncThunk(
-  "user/editTag",
+  "tag/editTag",
   async (
     { id, title, cb }: { id: string; title: string; cb: () => void },
     thunkAPI
@@ -113,6 +113,26 @@ export const editTag = createAsyncThunk(
     try {
       const response = await TagApi.edit(title, +id);
       cb();
+      return await response.data;
+    } catch (err: any) {
+      let error: AxiosError<CreateTagValidationErrors> = err; // cast the error for access
+      if (!error.response) {
+        throw err;
+      }
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+/**
+ *  Async listAllTags action
+ */
+ export const listAllTags = createAsyncThunk(
+  "tag/listAllTags",
+  async (_, thunkAPI) => {
+    try {
+      const response = await TagApi.listAll();
+      // cb();
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateTagValidationErrors> = err; // cast the error for access
@@ -143,10 +163,10 @@ export const tagSlice = createSlice({
       state.create_update_spinner = false;
     },
     resetTagFields: (state) => {
-      state.tag = {...FakeTag};
+      state.tag = { ...FakeTag };
     },
     handleTagTitle: (state, action) => {
-      state.tag = {...state.tag,title : action.payload.title }
+      state.tag = { ...state.tag, title: action.payload.title };
     },
   },
 
@@ -248,7 +268,27 @@ export const tagSlice = createSlice({
       ).errors;
       state.success_message = "";
     });
+
+    // listAllCategories async thunk lifecycle
+    builder.addCase(listAllTags.pending, (state) => {
+      state.list_spinner = true;
+    });
+    builder.addCase(listAllTags.fulfilled, (state, action) => {
+      state.list_spinner = false;
+      state.all_tags = action.payload.data;
+    });
+    builder.addCase(listAllTags.rejected, (state, action) => {
+      state.list_spinner = false;
+      state.error_message = (
+        action.payload as CreateTagValidationErrors
+      ).message;
+      state.validation_errors = (
+        action.payload as CreateTagValidationErrors
+      ).errors;
+      state.success_message = "";
+    });
   },
 });
 
-export const { setTagDefaults, handleTagTitle,resetTagFields } = tagSlice.actions;
+export const { setTagDefaults, handleTagTitle, resetTagFields } =
+  tagSlice.actions;

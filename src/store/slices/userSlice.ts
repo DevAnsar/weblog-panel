@@ -10,7 +10,7 @@ import type { GetPaginationWithData } from "../../types";
 import UserApi from "../../apis/User";
 import { AxiosError } from "axios";
 
-const FakeUser: GetUser = {
+export const FakeUser: GetUser = {
   id: 0,
   email: "",
   name: "",

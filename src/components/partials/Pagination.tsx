@@ -40,7 +40,7 @@ const Pagination = ({ data,action }: { data: GetPagination,action :any }) => {
   };
   // console.log(props)
   const num_pages = data.last_page;
-  let pages = [];
+  let pages : Array<any> = [];
   for (let page = 1; page <= num_pages; page++) {
     pages.push(
       <PaginationItem
