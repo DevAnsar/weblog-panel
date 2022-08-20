@@ -7,6 +7,6 @@
 * [x] Users
 * [x] Categories
 * [X] Tags
-* [ ] Posts
+* [X] Posts
 * [ ] Comments
 * [ ] Notification
