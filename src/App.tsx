@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import ListUsers from "./pages/users/Index";
 import AddUsers from "./pages/users/Add";
 import EditUsers from "./pages/users/Edit";
+import UserProfile from "./pages/users/Profile";
 import Login from "./components/Auth/Login";
 import ListCategories from "./pages/categories/Index";
 import AddCategories from "./pages/categories/Add";
@@ -155,6 +156,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditPost />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <UserProfile />
                 </ProtectedRoute>
               }
             />

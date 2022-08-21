@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 // partials
 import UserForm from "../../components/Users/UserForm";
 import Breadcrumb from "../../components/partials/Breadcrumb";
-import { useUserFieldChange } from "../../hooks/useUserFieldChange";
+import { useUserFieldChange } from "../../hooks/useUser";
+import {useHandleUserEditForm} from "../../hooks/useUser"
 
 // actions
 import {
-  editUser,
   showUser,
   setUserDefaults,
   resetUserFields,
@@ -24,7 +24,6 @@ const EditPage = () => {
   //get user id from the dynamic params from the current URL
   const { id } = useParams();
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   // user field change  handler
@@ -47,20 +46,7 @@ const EditPage = () => {
   }, []);
 
   // user edit form submit handler
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(user);
-    dispatch(
-      editUser({
-        id: id || "0",
-        data: user,
-        cb: () => {
-          dispatch(resetUserFields());
-          setTimeout(() => navigate("/users"), 2000);
-        },
-      })
-    );
-  };
+  const handleFormSubmit = useHandleUserEditForm({data : user , user_id : id || "0",navigateTo : "/users"});
 
   return (
     <div className="flex flex-col min-h-full">

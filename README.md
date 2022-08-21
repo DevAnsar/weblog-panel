@@ -8,5 +8,6 @@
 * [x] Categories
 * [X] Tags
 * [X] Posts
+* [x] User profile
 * [ ] Comments
 * [ ] Notification
