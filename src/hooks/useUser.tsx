@@ -55,13 +55,13 @@ export const useUserDelete = ({ user }: { user: GetUser }) => {
 export const useUserFieldChange = () => {
   const dispatch = useAppDispatch();
 
-  const handleUserChangeFn = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserChangeFn = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (e.target.name === "is_admin") {
       dispatch(
         handleUserChange({
           field: e.target.name,
           data: e.target.value,
-          checked: e.target.checked,
+          checked: (e.target as HTMLInputElement).checked,
         })
       );
     } else if (e.target.name === "image") {

@@ -30,7 +30,9 @@ const UserForm = ({
   validation_errors,
 }: {
   user: GetUserWithPassword;
-  handleUserChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUserChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   create_update_spinner: boolean;
   success_message: string;
   error_message: string;
@@ -100,6 +102,25 @@ const UserForm = ({
           validation_errors.image != null ? (
             <div className="text-red-600 text-sm">
               {validation_errors.image[0]}
+            </div>
+          ) : null}
+        </div>
+
+        <div className="">
+          <textarea
+            rows={4}
+            name="bio"
+            value={user?.bio || ""}
+            id="contact-form-name"
+            className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+            placeholder="توضیحات بایو کاربر"
+            onChange={handleUserChange}
+          ></textarea>
+          {validation_errors !== undefined &&
+          validation_errors.hasOwnProperty("bio") &&
+          validation_errors.bio != null ? (
+            <div className="text-red-600 text-sm">
+              {validation_errors.bio[0]}
             </div>
           ) : null}
         </div>

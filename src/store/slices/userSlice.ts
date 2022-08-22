@@ -18,6 +18,7 @@ export const FakeUser: GetUser = {
   created_at: "",
   image: "",
   image_url: null,
+  bio : ""
 };
 
 const InitUsers: GetPaginationWithData<GetUser[]> = {
@@ -33,6 +34,7 @@ const InitialValidationErrors: GetUserValidationFields = {
   password: null,
   is_admin: null,
   image : null,
+  bio : null
 };
 
 // Initial information for user slice
@@ -160,6 +162,7 @@ export const userSlice = createSlice({
         is_admin: 0,
         image: "",
         image_url: "",
+        bio : ""
       };
     },
     handleUserChange: (state, action) => {
@@ -228,7 +231,6 @@ export const userSlice = createSlice({
       state.validation_errors = InitialValidationErrors;
     });
     builder.addCase(addUser.rejected, (state, action) => {
-      console.log("addUser.rejected", action);
       state.error_message = (
         action.payload as CreateUserValidationErrors
       ).message;

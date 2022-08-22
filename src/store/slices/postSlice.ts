@@ -105,7 +105,6 @@ export const showPost = createAsyncThunk(
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await PostApi.showOne(+id);
-      console.log(response);
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreatePostValidationErrors> = err; // cast the error for access
@@ -199,7 +198,6 @@ export const postSlice = createSlice({
       state.list_spinner = true;
     });
     builder.addCase(listPosts.fulfilled, (state, action) => {
-      console.log(action);
       const { current_page, last_page } = action.payload.data;
       state.posts = action.payload.data;
       state.page = current_page > last_page ? last_page : current_page;
@@ -304,7 +302,6 @@ export const postSlice = createSlice({
       action.payload.data.tags = tags;
       action.payload.data.image = "";
 
-      console.log(action);
       state.create_update_spinner = false;
       state.post = action.payload.data;
     });

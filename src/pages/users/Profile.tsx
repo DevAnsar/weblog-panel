@@ -69,9 +69,7 @@ const UserProfile = () => {
                   </span>
                 </div>
 
-                <p className="text-slate-500 text-base">
-                  توضیحات پروفایل کاربر
-                </p>
+                <p className="text-slate-500 text-base">{user?.bio} </p>
                 <div className="flex justify-end w-full mt-5">
                   <button
                     className="px-3 py-1 text-sm text-white bg-blue-500 hover:bg-blue-700 rounded-lg"

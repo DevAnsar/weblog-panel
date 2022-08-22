@@ -10,8 +10,9 @@ export interface GetUser {
   name: string;
   is_admin: number;
   created_at: string;
-  image: string,
-  image_url: string | null,
+  image: string;
+  image_url: string | null;
+  bio: string;
 }
 
 /**
@@ -32,7 +33,7 @@ export interface GetUserWithPassword extends GetUser {
 
 /**
  * Create initial data for user slice
- * 
+ *
  *  * Structure:
  * ```
  * export interface GetUserInitialState {
@@ -66,7 +67,7 @@ export interface CreateUserValidationErrors {
 
 /**
  * User validation data in the UserForm used in the user slice
- * 
+ *
  * Structure:
  * ```
  * export interface GetUserValidationFields {
@@ -75,6 +76,7 @@ export interface CreateUserValidationErrors {
  *  password: null | [""];
  *  is_admin: null | [""];
  *  image : null | [""];
+ *  bio : null | [""];
  * }
  * ```
  * @see  https://github.com/DevAnsar/weblog-admin/tree/main/src/store/slices/user.ts#GetUserValidationFields
@@ -84,5 +86,6 @@ export interface GetUserValidationFields {
   name: null | [""];
   password: null | [""];
   is_admin: null | [""];
-  image : null | [""];
+  image: null | [""];
+  bio: null | [""];
 }

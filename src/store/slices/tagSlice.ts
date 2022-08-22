@@ -89,7 +89,6 @@ export const showTag = createAsyncThunk(
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await TagApi.showOne(+id);
-      console.log(response);
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateTagValidationErrors> = err; // cast the error for access

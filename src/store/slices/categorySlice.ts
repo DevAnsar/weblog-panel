@@ -90,7 +90,6 @@ export const showCategory = createAsyncThunk(
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await CategoryApi.showOne(+id);
-      console.log(response);
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateCategoryValidationErrors> = err; // cast the error for access
