@@ -36,10 +36,10 @@ const IndexPage = () => {
   return (
     <div className="flex flex-col min-h-full">
       <Breadcrumb />
-      <div className="container mx-auto px-4 sm:px-8 max-w-3xl">
+      <div className="container mx-auto lg:px-8 max-w-4xl">
         <div className="py-8">
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div className="px-5 py-5 flex justify-between">
+          <div className="py-4 ">
+            <div className="py-5 flex justify-between">
               <span className="text-gray-800 text-base">کاربران</span>
               <Link to="/users/add">
                 <button className="flex items-center px-3 py-1 border text-base rounded-xl bg-blue-500 text-white hover:bg-blue-700">
@@ -48,19 +48,21 @@ const IndexPage = () => {
                 </button>
               </Link>
             </div>
-            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden bg-white ">
+            <div className=" min-w-full shadow rounded-lg  bg-white overflow-hidden">
               <SuccessAlert msg={success_message} />
               <ErrorAlert msg={error_message} />
-              <table className="min-w-full leading-normal">
-                <UserTableHead />
-                <tbody>
-                  {users.data
-                    ? users.data.map((item: GetUser) => (
-                        <UserTableRow key={item.id} user={item} />
-                      ))
-                    : null}
-                </tbody>
-              </table>
+              <div className="w-full  overflow-x-auto inline-block">
+                <table className="min-w-full leading-normal">
+                  <UserTableHead />
+                  <tbody>
+                    {users.data
+                      ? users.data.map((item: GetUser) => (
+                          <UserTableRow key={item.id} user={item} />
+                        ))
+                      : null}
+                  </tbody>
+                </table>
+              </div>
               <Pagination data={users} action={listUsers} />
             </div>
             <Spinner show={list_spinner} />

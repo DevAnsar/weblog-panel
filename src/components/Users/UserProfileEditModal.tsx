@@ -4,6 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import UserForm from "../../components/Users/UserForm";
 import { useHandleUserEditForm, useUserFieldChange } from "../../hooks/useUser";
 import { showUser } from "../../store/slices/userSlice";
+import { saveUserDataInLocalStorage } from "../../utils/helper";
 
 const UserProfileEditModal: React.FC<{
   show: boolean;
@@ -29,9 +30,16 @@ const UserProfileEditModal: React.FC<{
   // user edit form submit handler
   const handleFormSubmit = useHandleUserEditForm({
     data: user,
-    user_id: user.id.toString() || "0",
+    user_id: user?.id?.toString() || "0",
     navigateTo: false,
-    cb: () => setTimeout(() => onClose(), 1500),
+    cb: (res_user) => {
+      console.log(user);
+      if (res_user !== undefined) {
+        console.log("res_user:",res_user);
+        saveUserDataInLocalStorage(res_user);
+      }
+      setTimeout(() => onClose(), 1500);
+    },
   });
 
   return (

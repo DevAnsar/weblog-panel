@@ -10,6 +10,8 @@ export interface GetUser {
   name: string;
   is_admin: number;
   created_at: string;
+  image: string,
+  image_url: string | null,
 }
 
 /**
@@ -72,6 +74,7 @@ export interface CreateUserValidationErrors {
  *  name: null | [""];
  *  password: null | [""];
  *  is_admin: null | [""];
+ *  image : null | [""];
  * }
  * ```
  * @see  https://github.com/DevAnsar/weblog-admin/tree/main/src/store/slices/user.ts#GetUserValidationFields
@@ -81,4 +84,5 @@ export interface GetUserValidationFields {
   name: null | [""];
   password: null | [""];
   is_admin: null | [""];
+  image : null | [""];
 }

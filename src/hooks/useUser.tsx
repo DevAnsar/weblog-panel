@@ -3,13 +3,10 @@ import {
   listUsers,
   deleteUser,
   editUser,
-  resetUserFields,
-  handleUserChange
+  handleUserChange,
 } from "../store/slices/userSlice";
 import type { GetUser, GetUserWithPassword } from "../types/user";
 import { useNavigate } from "react-router-dom";
-
-
 
 /**
  * User delete handlers hook.
@@ -50,21 +47,28 @@ export const useUserDelete = ({ user }: { user: GetUser }) => {
 
 /**
  * User data change handlers hook.
- * 
+ *
  * This hook takes input event and create function with React hook rules for change user fields in the redux store.
  * @category core
  * @returns React hook
  */
- export const useUserFieldChange = () => {
+export const useUserFieldChange = () => {
   const dispatch = useAppDispatch();
-  
+
   const handleUserChangeFn = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.name == "is_admin") {
+    if (e.target.name === "is_admin") {
       dispatch(
         handleUserChange({
           field: e.target.name,
           data: e.target.value,
           checked: e.target.checked,
+        })
+      );
+    } else if (e.target.name === "image") {
+      dispatch(
+        handleUserChange({
+          field: e.target.name,
+          data: (e.target as HTMLInputElement).files![0],
         })
       );
     } else {
@@ -89,35 +93,32 @@ export const useUserDelete = ({ user }: { user: GetUser }) => {
 export const useHandleUserEditForm = ({
   data,
   user_id,
-  navigateTo=false,
-  cb
+  navigateTo = false,
+  cb,
 }: {
   data: GetUserWithPassword;
   user_id: string;
   navigateTo: string | boolean;
-  cb? : ()=>void
+  cb?: (user? : GetUser) => void;
 }) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const handleFormSubmit = (
-    e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       editUser({
         id: user_id,
         data,
-        cb: () => {
-          dispatch(resetUserFields());
-          if(navigateTo){
+        cb: (user) => {
+          if (navigateTo) {
             setTimeout(() => navigate(navigateTo.toString()), 2000);
+          } else {
+            cb && cb(user);
           }
-          
-          cb && cb();
         },
       })
     );
   };
 
-  return handleFormSubmit
+  return handleFormSubmit;
 };

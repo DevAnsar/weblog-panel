@@ -9,6 +9,6 @@ export const Axios : AxiosInstance = axios.create({
 export const ApiAxios : AxiosInstance = axios.create({
     baseURL : "http://localhost:8000/api",
     headers : {
-        Authorization :  "Bearer " + localStorage.getItem("user.api_token"),
+        Authorization :  "Bearer " + JSON.parse(localStorage.getItem("user.api_token") || ""),
     }
 });

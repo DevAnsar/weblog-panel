@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { PencilIcon, TrashIcon } from "@heroicons/react/solid";
 import type { GetUser } from "../../types/user";
 import { useUserDelete } from "../../hooks/useUser";
-
+import UserLogoIcon from "../../assets/images/user-1.jpg";
 /**
  * Table tr for user.
  *
@@ -19,6 +19,13 @@ const UserTableRow = ({ user }: { user: GetUser }) => {
     <tr>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{user.id}</p>
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <img
+          alt=""
+          src={user.image_url || UserLogoIcon}
+          className="w-9 h-9 rounded-full"
+        />
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{user.name}</p>
@@ -55,13 +62,9 @@ const UserTableRow = ({ user }: { user: GetUser }) => {
           >
             <PencilIcon className="w-5 text-slate-500 hover:text-blue-500" />
           </Link>
-          <a
-            href="#"
-            onClick={handleuserDelete}
-            className="btn btn-danger btn-sm"
-          >
+          <button onClick={handleuserDelete} className="btn btn-danger btn-sm">
             <TrashIcon className="w-5 text-slate-500 hover:text-red-500" />
-          </a>
+          </button>
         </div>
       </td>
     </tr>

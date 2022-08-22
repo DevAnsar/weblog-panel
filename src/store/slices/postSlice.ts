@@ -126,7 +126,6 @@ export const editPost = createAsyncThunk(
     { id, data, cb }: { id: string; data: any; cb: () => void },
     thunkAPI
   ) => {
-    console.log(data);
     try {
       const response = await PostApi.edit(data, +id);
       cb();

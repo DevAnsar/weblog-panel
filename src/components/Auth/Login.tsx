@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import { AtSymbolIcon, KeyIcon } from "@heroicons/react/solid";
 import { useNavigate } from "react-router-dom";
 import Auth from "../../apis/Auth";
@@ -6,9 +6,11 @@ import Auth from "../../apis/Auth";
 import type { GetAuthnticationValidationFields } from "./../../types/auth";
 import type { GetUser } from "./../../types/user";
 
+import { saveUserDataInLocalStorage } from "../../utils/helper";
+
 /**
  * Login page component.
- * 
+ *
  * @category layouts
  * @returns React Component
  */
@@ -16,7 +18,9 @@ const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error_message, setErrorMessage] = useState<string | null>(null);
-  const [errors, setErrors] = useState<GetAuthnticationValidationFields | null>(null);
+  const [errors, setErrors] = useState<GetAuthnticationValidationFields | null>(
+    null
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,18 +28,18 @@ const LoginPage = () => {
     document.body.classList.add("login-page");
   }, []);
 
-  // email input handler - change email state with input value 
+  // email input handler - change email state with input value
   const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-    // password input handler - change password state with input value 
+  // password input handler - change password state with input value
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
 
-  // Login form handler - this function calls login api and give data to it for get response from server 
-  // and save token after takes data 
+  // Login form handler - this function calls login api and give data to it for get response from server
+  // and save token after takes data
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,10 +55,10 @@ const LoginPage = () => {
       (response) => {
         if (response.user.is_admin === 1) {
           const user: GetUser = response.user;
-          (Object.keys(user) as (keyof GetUser)[]).forEach((key) => {
-            // console.log(JSON.stringify(user[key]));
-            localStorage.setItem("user." + key, user[key]?.toString());
-          });
+          saveUserDataInLocalStorage(user);
+          // (Object.keys(user) as (keyof GetUser)[]).forEach((key) => {
+          //   localStorage.setItem("user." + key, JSON.stringify(user[key]));
+          // });
           setTimeout(() => {
             navigate("/", { replace: true });
           }, 500);

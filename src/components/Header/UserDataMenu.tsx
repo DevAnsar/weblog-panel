@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import UserLogoIcon from "../../assets/images/user-1.jpg";
 import { Link } from "react-router-dom";
-
+import { getLocalStorageValue } from "../../utils/helper"
 /**
  * User manu component -- powered by @headless/react
  *
@@ -35,10 +35,10 @@ const UserDataMenu = () => {
           <Menu.Button className="w-full text-sm font-medium flex text-slate-100 items-center gap-2">
             <img
               alt="profil"
-              src={UserLogoIcon}
+              src={getLocalStorageValue("user.image_url") || UserLogoIcon }
               className="mx-auto object-cover rounded-full h-10 w-10 "
             />
-            <p>{localStorage.getItem("user.name")}</p>
+            <p>{getLocalStorageValue("user.name")}</p>
           </Menu.Button>
         </div>
         <Transition

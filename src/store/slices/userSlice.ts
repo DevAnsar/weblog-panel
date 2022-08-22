@@ -16,6 +16,8 @@ export const FakeUser: GetUser = {
   name: "",
   is_admin: 0,
   created_at: "",
+  image: "",
+  image_url: null,
 };
 
 const InitUsers: GetPaginationWithData<GetUser[]> = {
@@ -30,6 +32,7 @@ const InitialValidationErrors: GetUserValidationFields = {
   email: null,
   password: null,
   is_admin: null,
+  image : null,
 };
 
 // Initial information for user slice
@@ -95,7 +98,6 @@ export const showUser = createAsyncThunk(
   async ({ id }: { id: string }, thunkAPI) => {
     try {
       const response = await UserApi.showOne(+id);
-      console.log(response);
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateUserValidationErrors> = err; // cast the error for access
@@ -113,12 +115,12 @@ export const showUser = createAsyncThunk(
 export const editUser = createAsyncThunk(
   "user/editUser",
   async (
-    { id, data, cb }: { id: string; data: GetUserWithPassword; cb: () => void },
+    { id, data, cb }: { id: string; data: GetUserWithPassword; cb: (user? : GetUser) => void },
     thunkAPI
   ) => {
     try {
       const response = await UserApi.edit(data, +id);
-      cb();
+      cb(response.data.data);
       return await response.data;
     } catch (err: any) {
       let error: AxiosError<CreateUserValidationErrors> = err; // cast the error for access
@@ -156,6 +158,8 @@ export const userSlice = createSlice({
         password: "",
         created_at: "",
         is_admin: 0,
+        image: "",
+        image_url: "",
       };
     },
     handleUserChange: (state, action) => {
