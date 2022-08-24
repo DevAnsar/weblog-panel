@@ -29,13 +29,13 @@ const PostTableRow = ({ post }: { post: GetPost }) => {
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         {post.published === 1 && (
-          <span className="text-green-600 text-sm bg-green-100 border-green-600 border-md px-2 py-1 whitespace-no-wrap rounded-lg">
+          <span className="whitespace-nowrap text-green-600 text-sm bg-green-100 border-green-600 border-md px-2 py-1 whitespace-no-wrap rounded-lg">
             منشر شده
           </span>
         )}
 
         {post.published === 2 && (
-          <span className="text-gray-800 text-sm bg-gray-100 border-gray-600 border-md px-2 py-1  whitespace-no-wrap rounded-lg">
+          <span className="whitespace-nowrap text-gray-800 text-sm bg-gray-100 border-gray-600 border-md px-2 py-1  whitespace-no-wrap rounded-lg">
             پیش نویس
           </span>
         )}
@@ -43,13 +43,25 @@ const PostTableRow = ({ post }: { post: GetPost }) => {
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <span className="text-gray-900 whitespace-no-wrap">
-          {post.category.title}
+          {post.category ? (
+            post.category?.title
+          ) : (
+            <span className="text-sm line-through text-slate-500 whitespace-nowrap">
+              فاقد دسته
+            </span>
+          )}
         </span>
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <span className="text-gray-900 whitespace-no-wrap">
-          {post.user.name}
+          {post.user ? (
+            post.user?.name
+          ) : (
+            <span className="text-sm line-through text-slate-500 whitespace-nowrap">
+              فاقد نویسنده
+            </span>
+          )}
         </span>
       </td>
 
@@ -61,9 +73,9 @@ const PostTableRow = ({ post }: { post: GetPost }) => {
           >
             <PencilIcon className="w-5 text-slate-500 hover:text-blue-500" />
           </Link>
-          <a href="#" onClick={handlePostDelete} className="btn btn-danger btn-sm">
+          <button onClick={handlePostDelete} className="btn btn-danger btn-sm">
             <TrashIcon className="w-5 text-slate-500 hover:text-red-500" />
-          </a>
+          </button>
         </div>
       </td>
     </tr>
