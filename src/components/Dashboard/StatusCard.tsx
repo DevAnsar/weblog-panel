@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowDownIcon } from "@heroicons/react/solid";
+import { CheckIcon } from "@heroicons/react/solid";
 
 
 /**
@@ -22,7 +22,7 @@ const StatusCard = ({
   title: string;
   Icon: any;
   link: string;
-  count: string;
+  count: number;
 }) => {
     
   return (
@@ -36,7 +36,7 @@ const StatusCard = ({
                 className={`rounded-full badge bg-blue-500 text-xs flex p-1 px-2 gap-1`}
               >
                 <span className="text-white">{count}</span>
-                <ArrowDownIcon className="w-3 text-slate-50" />
+                <CheckIcon className="w-3 text-slate-50" />
               </span>
             </div>
             <div className="mt-8">

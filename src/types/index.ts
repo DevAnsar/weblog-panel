@@ -21,6 +21,18 @@ export interface GetPaginationWithData<T> extends GetPagination{
 }
 
 /**
+ * Apis errors type
+ *
+ * @template T the type used for the errors type.
+ *
+ * @public
+ */
+export interface ApiErrors<T> {
+  errors: T;
+  message: string;
+}
+
+/**
  * GetBreadcrumb links data type
  * @public
  */
