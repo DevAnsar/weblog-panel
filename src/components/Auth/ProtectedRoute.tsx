@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-
+import { getLocalStorageValue } from "../../utils/helper";
 /**
  * Protected route for authenticated user.
  *
@@ -9,7 +9,6 @@ import { Navigate } from "react-router-dom";
 const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
-
   /**
    * take user token from localstorage
    *
@@ -17,7 +16,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactElement }> = ({
    * @category core
    * @returns user auth token
    */
-  const token = localStorage.getItem("user.api_token");
+  const token = getLocalStorageValue("user.api_token");
 
   // Redirection to login in case of problem in user authentication
   if (!token) {

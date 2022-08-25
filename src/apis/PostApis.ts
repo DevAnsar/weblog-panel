@@ -7,26 +7,26 @@ import { ApiAxios, Axios } from "./index";
  * @return Post apis
  */
 const PostApis = {
-  list: (page = 1) => Axios.get("/posts?page=" + page),
+  list: (page = 1) => Axios().get("/posts?page=" + page),
   add: (data: any) => {
     let form_data = PostApis.toFormData(data);
-    return ApiAxios.post("/posts", form_data, {
+    return ApiAxios().post("/posts", form_data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
   },
-  showOne: (id: number) => Axios.get("/posts/" + id),
+  showOne: (id: number) => Axios().get("/posts/" + id),
   edit: (data: any, id: number) => {
     let form_data = PostApis.toFormData(data);
     form_data.append("_method", "PUT");
-    return ApiAxios.post("/posts/" + id, form_data, {
+    return ApiAxios().post("/posts/" + id, form_data, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
   },
-  remove: (id: number) => ApiAxios.delete("/posts/" + id),
+  remove: (id: number) => ApiAxios().delete("/posts/" + id),
   toFormData: (payload: any) => {
     const formData = new FormData();
     for (let key in payload) {

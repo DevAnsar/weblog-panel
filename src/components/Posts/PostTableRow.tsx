@@ -30,7 +30,7 @@ const PostTableRow = ({ post }: { post: GetPost }) => {
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         {post.published === 1 && (
           <span className="whitespace-nowrap text-green-600 text-sm bg-green-100 border-green-600 border-md px-2 py-1 whitespace-no-wrap rounded-lg">
-            منشر شده
+            منتشر شده
           </span>
         )}
 

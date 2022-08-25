@@ -8,6 +8,7 @@ import type {
   GetCheckAuthResponse,
   GetCheckAuthErrors,
 } from "./../types/auth";
+import { getLocalStorageValue } from "../utils/helper";
 
 /**
  * create login and logout and checkAuth apis for app.
@@ -22,7 +23,7 @@ const Auth = {
     successCb: (response: GetLoginResponse) => void,
     failCb: (error: AxiosError<GetLoginErrors>) => void
   ) => {
-    Axios.post<GetLoginResponse>("/login", data)
+    Axios().post<GetLoginResponse>("/login", data)
       .then((response) => {
         successCb(response.data);
       })
@@ -39,9 +40,9 @@ const Auth = {
     successCb: (response: GetLogoutResponse) => void,
     failCb: (error: AxiosError<GetLogoutErrors>) => void
   ) => {
-    Axios.get("/logout", {
+    Axios().get("/logout", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user.api_token"),
+        Authorization: "Bearer " + getLocalStorageValue("user.api_token"),
       },
     })
       .then((response) => {
@@ -62,9 +63,9 @@ const Auth = {
     successCb: (response: GetCheckAuthResponse) => void,
     failCb: (error: AxiosError<GetCheckAuthErrors>) => void
   ) => {
-    Axios.get<GetCheckAuthResponse>("/check-auth", {
+    Axios().get<GetCheckAuthResponse>("/check-auth", {
       headers: {
-        Authorization: "Bearer " + localStorage.getItem("user.api_token"),
+        Authorization: "Bearer " + getLocalStorageValue("user.api_token"),
       },
     })
       .then((response) => {

@@ -58,7 +58,7 @@ const IndexPage = () => {
                       ))}
                   </tbody>
                 </table>
-                {posts.data! && (
+                {!posts.data && (
                   <div className="flex justify-center">
                     <span className="flex justify-center align-center text-base mx-auto my-10 text-gray-500 bg-gray-100 px-4 py-2 rounded-lg text-center whitespace-nowrap">
                       <ShieldExclamationIcon className="w-5 text-gray-500 ml-2" />
