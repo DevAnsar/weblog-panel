@@ -25,6 +25,9 @@ import EditTag from "./pages/tags/Edit";
 import ListPosts from "./pages/posts/Index";
 import AddPost from "./pages/posts/Add";
 import EditPost from "./pages/posts/Edit";
+import ListNewsletter from "./pages/newsletters/Index";
+import AddNewsletter from "./pages/newsletters/Add";
+import EditNewsletter from "./pages/newsletters/Edit";
 
 /**
  * Create the main component
@@ -159,6 +162,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
             <Route
               path="/profile"
               element={
@@ -167,6 +171,32 @@ function App() {
                 </ProtectedRoute>
               }
             />
+
+            <Route
+              path="/newsletters"
+              element={
+                <ProtectedRoute>
+                  <ListNewsletter />
+                </ProtectedRoute>
+              }
+            />
+                        <Route
+              path="/newsletters/add"
+              element={
+                <ProtectedRoute>
+                  <AddNewsletter />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/newsletters/edit/:id"
+              element={
+                <ProtectedRoute>
+                  <EditNewsletter />
+                </ProtectedRoute>
+              }
+            />
+
             {/* 
 
           <Route

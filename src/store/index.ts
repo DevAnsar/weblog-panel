@@ -4,6 +4,7 @@ import { categorySlice } from "./slices/categorySlice";
 import { tagSlice } from "./slices/tagSlice";
 import { postSlice } from "./slices/postSlice";
 import { dashboardSlice } from "./slices/dashboardSlice";
+import { newsletterSlice } from "./slices/newsletterSlice";
 
 // create store from redux for save app information
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     tag : tagSlice.reducer,
     post : postSlice.reducer,
     dashboard : dashboardSlice.reducer,
+    newsletter : newsletterSlice.reducer,
   },
 });
 
