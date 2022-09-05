@@ -18,3 +18,10 @@ export const getLocalStorageValue = (key: string): string | undefined => {
   if (value !== null) return JSON.parse(value);
   return undefined;
 };
+
+/**
+ * Truncate a long string and return substring
+ */
+export const str_truncate = (str: string, n: number = 100): string => {
+  return str.length > n ? str.slice(0, n - 1) + "..." : str;
+};

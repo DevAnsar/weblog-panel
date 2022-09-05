@@ -28,6 +28,8 @@ import EditPost from "./pages/posts/Edit";
 import ListNewsletter from "./pages/newsletters/Index";
 import AddNewsletter from "./pages/newsletters/Add";
 import EditNewsletter from "./pages/newsletters/Edit";
+import ListContacts from "./pages/contacts/Index";
+import ShowContacts from "./pages/contacts/Show";
 
 /**
  * Create the main component
@@ -180,7 +182,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-                        <Route
+            <Route
               path="/newsletters/add"
               element={
                 <ProtectedRoute>
@@ -193,6 +195,23 @@ function App() {
               element={
                 <ProtectedRoute>
                   <EditNewsletter />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/contact-us"
+              element={
+                <ProtectedRoute>
+                  <ListContacts />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contact-us/show/:id"
+              element={
+                <ProtectedRoute>
+                  <ShowContacts />
                 </ProtectedRoute>
               }
             />

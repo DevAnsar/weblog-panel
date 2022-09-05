@@ -6,7 +6,8 @@ import {
   ServerIcon,
   TagIcon,
   ChatAlt2Icon,
-  SpeakerphoneIcon
+  SpeakerphoneIcon,
+  ChatAltIcon
 } from "@heroicons/react/outline";
 import SideBarItem from "./SidebarItem";
 import type { GetSidebarItem } from "../../types";
@@ -46,14 +47,21 @@ export const sidebarLinks: GetSidebarItem[] = [
   },
 
   {
-    id: "5",
+    id: "6",
     title: "خبرنامه",
     Icon: SpeakerphoneIcon,
     link: "/newsletters",
   },
 
   {
-    id: "6",
+    id: "7",
+    title: "تماس با ما",
+    Icon: ChatAltIcon,
+    link: "/contact-us",
+  },
+
+  {
+    id: "8",
     title: "کامنت ها",
     Icon: ChatAlt2Icon,
     link: "/comments",

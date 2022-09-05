@@ -5,6 +5,7 @@ import { tagSlice } from "./slices/tagSlice";
 import { postSlice } from "./slices/postSlice";
 import { dashboardSlice } from "./slices/dashboardSlice";
 import { newsletterSlice } from "./slices/newsletterSlice";
+import { contactSlice } from "./slices/contactSlice";
 
 // create store from redux for save app information
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
     post : postSlice.reducer,
     dashboard : dashboardSlice.reducer,
     newsletter : newsletterSlice.reducer,
+    contact : contactSlice.reducer,
   },
 });
 
