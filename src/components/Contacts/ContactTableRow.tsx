@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { EyeIcon, TrashIcon } from "@heroicons/react/solid";
 import type { GetContact } from "../../types/contact";
 import { useContactDelete } from "../../hooks/useContactDelete";
-import { str_truncate } from "../../utils/helper"
+import { str_truncate } from "../../utils/helper";
 
 /**
  * Table tr for contact.
@@ -27,19 +27,26 @@ const ContactTableRow = ({ contact }: { contact: GetContact }) => {
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <p className="text-gray-900 whitespace-no-wrap">{contact.email}</p>
       </td>
-      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{str_truncate(contact.content)}</p>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm" width={250}>
+        <p className="text-gray-900 whitespace-no-wrap">
+          {str_truncate(contact.content)}
+        </p>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         {contact.seen ? (
           <span className="whitespace-nowrap text-green-600 text-sm bg-green-100 border-green-600 border-md px-2 py-1 whitespace-no-wrap rounded-lg">
-            شده
+            بله
           </span>
         ) : (
           <span className="whitespace-nowrap text-gray-800 text-sm bg-gray-100 border-gray-600 border-md px-2 py-1  whitespace-no-wrap rounded-lg">
-            نشده
+            خیر
           </span>
         )}
+      </td>
+      <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+        <span className="whitespace-nowrap text-green-600 text-sm bg-green-100 border-green-600 border-md px-2 py-1 whitespace-no-wrap rounded-lg">
+          {contact.answers_count || 0}
+        </span>
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
         <div className=" flex items-center gap-5 w-full">

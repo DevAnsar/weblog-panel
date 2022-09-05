@@ -11,6 +11,8 @@ export interface GetContact {
   content: string;
   seen: boolean;
   parent_id: number;
+  answers : GetContact[];
+  answers_count ? : number;
 }
 
 /**

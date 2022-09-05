@@ -16,6 +16,7 @@ const FakeContact: GetContact = {
   content: "",
   parent_id: 0,
   seen: false,
+  answers : []
 };
 
 const InitContacts: GetPaginationWithData<GetContact[]> = {
@@ -131,7 +132,7 @@ export const contactSlice = createSlice({
     },
     handleFieldChange: (state, action) => {
       const { data } = action.payload;
-      state.contact = data;
+      state.answerContent = data;
     },
   },
 
@@ -184,9 +185,10 @@ export const contactSlice = createSlice({
       state.validation_errors = InitialValidationErrors;
     });
     builder.addCase(answerContact.rejected, (state, action) => {
+      console.log(action)
       state.error_message = (
         action.payload as CreateContactValidationErrors
-      ).message;
+      ).message ||  "مشکل در ارتباط با سرور رخ داد";
       state.create_update_spinner = false;
       state.validation_errors = (
         action.payload as CreateContactValidationErrors

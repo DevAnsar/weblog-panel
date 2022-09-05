@@ -12,7 +12,7 @@ const ContactApis = {
   remove: (id: number) => ApiAxios().delete("/contacts/" + id),
   answer: (id: number,content: string) => {
     // let form_data = ContactApis.toFormData(data);
-    return ApiAxios().post(`/contacts/${id}/answer`, {answer : content});
+    return ApiAxios().post(`/contacts/${id}/answer`, {content});
   }
 };
 export default ContactApis;

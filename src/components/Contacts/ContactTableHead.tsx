@@ -42,6 +42,13 @@ const ContactTableRow = () => {
 
         <th
           scope="col"
+          className="px-5 py-3 whitespace-nowrap border-b border-gray-200 text-gray-800  text-right text-sm uppercase font-normal"
+        >
+          پاسخ ها{" "}
+        </th>
+
+        <th
+          scope="col"
           className="px-5 py-3 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
         ></th>
       </tr>
