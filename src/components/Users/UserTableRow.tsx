@@ -28,10 +28,15 @@ const UserTableRow = ({ user }: { user: GetUser }) => {
         />
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user.name}</p>
+        <p className="text-gray-900 whitespace-nowrap">{user.name}</p>
+        {user?.username && (
+          <span className="text-blue-700 bg-blue-200 rounded-lg px-1 whitespace-no-wrap">
+            {user?.username}
+          </span>
+        )}
       </td>
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap">{user.email}</p>
+        <p className="text-gray-900 whitespace-nowrap">{user.email}</p>
       </td>
 
       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

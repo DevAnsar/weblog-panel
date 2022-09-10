@@ -8,6 +8,7 @@ export interface GetUser {
   id: number;
   email: string;
   name: string;
+  username: string;
   is_admin: number;
   created_at: string;
   image: string;
@@ -73,6 +74,7 @@ export interface CreateUserValidationErrors {
  * export interface GetUserValidationFields {
  *  email: null | [""];
  *  name: null | [""];
+ *  username: null | [""];
  *  password: null | [""];
  *  is_admin: null | [""];
  *  image : null | [""];
@@ -84,6 +86,7 @@ export interface CreateUserValidationErrors {
 export interface GetUserValidationFields {
   email: null | [""];
   name: null | [""];
+  username: null | [""];
   password: null | [""];
   is_admin: null | [""];
   image: null | [""];

@@ -14,6 +14,7 @@ export const FakeUser: GetUser = {
   id: 0,
   email: "",
   name: "",
+  username: "",
   is_admin: 0,
   created_at: "",
   image: "",
@@ -30,6 +31,7 @@ const InitUsers: GetPaginationWithData<GetUser[]> = {
 };
 const InitialValidationErrors: GetUserValidationFields = {
   name: null,
+  username: null,
   email: null,
   password: null,
   is_admin: null,
@@ -156,6 +158,7 @@ export const userSlice = createSlice({
       state.user = {
         id: 0,
         name: "",
+        username: "",
         email: "",
         password: "",
         created_at: "",
